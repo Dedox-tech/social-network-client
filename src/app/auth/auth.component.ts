@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserSignUp } from '../core/models/user.model';
 import { AuthService } from '../core/services/auth.service';
+import { passwordValidator } from '../core/validators/password.validator';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +15,7 @@ export class AuthComponent {
   signUpForm = new FormGroup({
     userName: new FormControl('', [Validators.required, Validators.minLength(4)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, passwordValidator()]),
   });
 
   handleSignUp(): void {

@@ -1,8 +1,9 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { isNonAlphanumeric } from '../helpers/is-non-alphanumeric.helper';
 
-export function passwordValidator(password: string): ValidatorFn {
+export function passwordValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
+    const password: string = control.value as string;
     const arrayPassword: string[] = password.split('');
 
     // Passwords must have at least one uppercase ('A'-'Z').
