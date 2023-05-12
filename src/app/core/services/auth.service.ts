@@ -14,7 +14,7 @@ export class AuthService {
   signUp(userCredentials: UserSignUp): Subscription {
     const { serverUrl } = environment;
     return this.httpClient
-      .post<EmptyResponse>(`${serverUrl}/api/auth`, userCredentials)
+      .post<EmptyResponse>(`${serverUrl}/api/auth/signup`, userCredentials)
       .subscribe((response: EmptyResponse) => {
         console.log(response);
       });
