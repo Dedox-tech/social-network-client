@@ -11,6 +11,11 @@
   padding: 10px;
 }
 
+.custom-header {
+  display: flex;
+  flex-direction: column;
+}
+
 .custom-form {
   margin-top: 15px;
 }
