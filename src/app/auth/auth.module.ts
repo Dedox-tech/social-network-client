@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AuthComponent],
@@ -16,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatSnackBarModule,
   ],
 })
 export class AuthModule {}

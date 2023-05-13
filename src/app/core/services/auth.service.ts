@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EmptyResponse } from '../models/response.model';
 import { UserSignUp } from '../models/user.model';
 
@@ -11,12 +11,8 @@ import { UserSignUp } from '../models/user.model';
 export class AuthService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  signUp(userCredentials: UserSignUp): Subscription {
+  signUp(userCredentials: UserSignUp): Observable<EmptyResponse> {
     const { serverUrl } = environment;
-    return this.httpClient
-      .post<EmptyResponse>(`${serverUrl}/api/auth/signup`, userCredentials)
-      .subscribe((response: EmptyResponse) => {
-        console.log(response);
-      });
+    return this.httpClient.post<EmptyResponse>(`${serverUrl}/api/auth/signup`, userCredentials);
   }
 }
