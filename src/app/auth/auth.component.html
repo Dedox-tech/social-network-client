@@ -9,19 +9,45 @@
         <div class="custom-form-field">
           <label> Username </label>
           <mat-form-field>
-            <input matInput type="text" placeholder="Jhondoe007" formControlName="userName" />
+            <input
+              matInput
+              type="text"
+              placeholder="Jhondoe007"
+              formControlName="userName"
+              minlength="4"
+            />
+            <mat-error *ngIf="signUpForm.controls.userName.errors">
+              {{ signUpForm.controls.userName.errors["required"] ? "Username is required." : "" }}
+              {{
+                signUpForm.controls.userName.errors["minlength"]
+                  ? "Minimum length is 4 characters."
+                  : ""
+              }}
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="custom-form-field">
           <label> Email </label>
           <mat-form-field>
             <input matInput type="email" placeholder="email@example.com" formControlName="email" />
+            <mat-error *ngIf="signUpForm.controls.email.errors">
+              {{ signUpForm.controls.email.errors["required"] ? "Email is required." : "" }}
+              {{ signUpForm.controls.email.errors["email"] ? "Please enter a valid email." : "" }}
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="custom-form-field">
           <label> Password </label>
           <mat-form-field>
             <input matInput type="password" formControlName="password" />
+            <mat-error *ngIf="signUpForm.controls.password.errors">
+              {{ signUpForm.controls.password.errors["required"] ? "Password is required." : "" }}
+              {{
+                signUpForm.controls.password.errors["invalidPassword"]
+                  ? "A digit, an upper letter and a special character are required."
+                  : ""
+              }}
+            </mat-error>
           </mat-form-field>
         </div>
         <mat-card-actions align="end">

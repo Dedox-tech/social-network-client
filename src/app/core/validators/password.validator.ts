@@ -4,6 +4,12 @@ import { isNonAlphanumeric } from '../helpers/is-non-alphanumeric.helper';
 export function passwordValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const password: string = control.value as string;
+
+    // No validation is going to be performed if the string is empty
+    if (password === '') {
+      return null;
+    }
+
     const arrayPassword: string[] = password.split('');
 
     // Passwords must have at least one uppercase ('A'-'Z').
