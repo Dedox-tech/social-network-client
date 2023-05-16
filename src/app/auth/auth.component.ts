@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserSignUp } from '../core/models/user.model';
+import { UserAuthInformation, UserLogIn, UserSignUp } from '../core/models/user.model';
 import { AuthService } from '../core/services/auth.service';
 import { passwordValidator } from '../core/validators/password.validator';
-import { EmptyResponse } from '../core/models/response.model';
+import { DataResponse, EmptyResponse } from '../core/models/response.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -23,12 +24,38 @@ export class AuthComponent {
     password: new FormControl('', [Validators.required, passwordValidator()]),
   });
 
+  logInForm = new FormGroup({
+    userName: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+  });
+
   handleSignUp(): void {
     const signUpInformation: UserSignUp = this.signUpForm.value as UserSignUp;
     // Only fires the form if the status is valid
     if (this.signUpForm.valid) {
       this.authService.signUp(signUpInformation).subscribe((response: EmptyResponse) => {
-        this.snackBarService.open('Excellent! You have signed up in the system', 'Close');
+        this.snackBarService.open('You have signed up! Now you can login anytime', 'Close');
+      });
+    } else {
+      this.snackBarService.open(
+        'Something went wrong, please double-check the information',
+        'Close'
+      );
+    }
+  }
+
+  handleLogIn(): void {
+    const logInInformation: UserLogIn = this.logInForm.value as UserLogIn;
+    if (this.logInForm.valid) {
+      this.authService.logIn(logInInformation).subscribe({
+        next: (response: DataResponse<UserAuthInformation>) => {
+          this.authService.saveAuthData(response.data);
+          this.snackBarService.open('Excellent! You have logged in in the system', 'Close');
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          const customError: EmptyResponse = errorResponse.error;
+          this.snackBarService.open(customError.message, 'Close');
+        },
       });
     }
   }

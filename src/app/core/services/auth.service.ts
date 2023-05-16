@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
-import { EmptyResponse } from '../models/response.model';
-import { UserSignUp } from '../models/user.model';
+import { DataResponse, EmptyResponse } from '../models/response.model';
+import { UserAuthInformation, UserLogIn, UserSignUp } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +14,19 @@ export class AuthService {
   signUp(userCredentials: UserSignUp): Observable<EmptyResponse> {
     const { serverUrl } = environment;
     return this.httpClient.post<EmptyResponse>(`${serverUrl}/api/auth/signup`, userCredentials);
+  }
+
+  logIn(userCredentials: UserLogIn): Observable<DataResponse<UserAuthInformation>> {
+    const { serverUrl } = environment;
+    return this.httpClient.post<DataResponse<UserAuthInformation>>(
+      `${serverUrl}/api/auth/login`,
+      userCredentials
+    );
+  }
+
+  saveAuthData(userData: UserAuthInformation): void {
+    const { token } = userData;
+    localStorage.setItem('token', token);
+    console.log(userData.expiration);
   }
 }
