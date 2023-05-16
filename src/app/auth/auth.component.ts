@@ -6,6 +6,7 @@ import { passwordValidator } from '../core/validators/password.validator';
 import { DataResponse, EmptyResponse } from '../core/models/response.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -14,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AuthComponent {
   constructor(
+    private readonly router: Router,
     private readonly authService: AuthService,
     private readonly snackBarService: MatSnackBar
   ) {}
@@ -58,6 +60,9 @@ export class AuthComponent {
         next: (response: DataResponse<UserAuthInformation>) => {
           this.authService.saveAuthData(response.data);
           this.snackBarService.open('Excellent! You have logged in in the system', 'Close');
+          // Router.navigate returns a promise but we are not supposed to do anything with the result
+          // More info: https://github.com/angular/angular/issues/45202
+          void this.router.navigate(['/feed']);
         },
         error: (errorResponse: HttpErrorResponse) => {
           const customError: EmptyResponse = errorResponse.error;

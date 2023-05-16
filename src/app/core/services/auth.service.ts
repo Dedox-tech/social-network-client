@@ -4,12 +4,13 @@ import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { DataResponse, EmptyResponse } from '../models/response.model';
 import { UserAuthInformation, UserLogIn, UserSignUp } from '../models/user.model';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(private readonly httpClient: HttpClient, private readonly datePipe: DatePipe) {}
 
   signUp(userCredentials: UserSignUp): Observable<EmptyResponse> {
     const { serverUrl } = environment;
@@ -25,8 +26,10 @@ export class AuthService {
   }
 
   saveAuthData(userData: UserAuthInformation): void {
-    const { token } = userData;
+    const { token, expiration } = userData;
     localStorage.setItem('token', token);
-    console.log(userData.expiration);
+
+    const stringDate: string = this.datePipe.transform(expiration, 'full') as string;
+    localStorage.setItem('expiration', stringDate);
   }
 }
