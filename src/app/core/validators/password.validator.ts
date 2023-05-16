@@ -3,10 +3,10 @@ import { isNonAlphanumeric } from '../helpers/is-non-alphanumeric.helper';
 
 export function passwordValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const password: string = control.value as string;
+    const password: string | null = control.value;
 
-    // No validation is going to be performed if the string is empty
-    if (password === '') {
+    // No validation is going to be performed if the string is empty or null
+    if (password === null || password === '') {
       return null;
     }
 

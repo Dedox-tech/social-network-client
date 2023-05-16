@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { UserAuthInformation, UserLogIn, UserSignUp } from '../core/models/user.model';
 import { AuthService } from '../core/services/auth.service';
 import { passwordValidator } from '../core/validators/password.validator';
@@ -18,6 +18,10 @@ export class AuthComponent {
     private readonly snackBarService: MatSnackBar
   ) {}
 
+  // Workaround needed because calling FormGroup.reset does not clear the Angular Material validator messages
+  // More info: https://github.com/angular/components/issues/4190
+  @ViewChild('signUpFormDirective') private readonly signUpFormDirective: NgForm | null = null;
+
   signUpForm = new FormGroup({
     userName: new FormControl('', [Validators.required, Validators.minLength(4)]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -35,6 +39,9 @@ export class AuthComponent {
     if (this.signUpForm.valid) {
       this.authService.signUp(signUpInformation).subscribe((response: EmptyResponse) => {
         this.snackBarService.open('You have signed up! Now you can login anytime', 'Close');
+        // Resetting the form state
+        this.signUpForm.reset();
+        this.signUpFormDirective?.resetForm();
       });
     } else {
       this.snackBarService.open(

@@ -44,7 +44,12 @@
           <p>Join the community and create your account now!</p>
         </mat-card-header>
         <mat-card-content>
-          <form class="custom-form" [formGroup]="signUpForm" (ngSubmit)="handleSignUp()">
+          <form
+            class="custom-form"
+            [formGroup]="signUpForm"
+            (ngSubmit)="handleSignUp()"
+            #signUpFormDirective="ngForm"
+          >
             <div class="custom-form-field">
               <label> Username </label>
               <mat-form-field>
