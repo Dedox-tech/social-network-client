@@ -1,4 +1,5 @@
 // Based in https://stackoverflow.com/questions/4434076/best-way-to-alphanumeric-check-in-javascript
+// This code just take into account the first character
 export function isNonAlphanumeric(character: string): boolean {
   // UTF-16 representation
   const codeRepresentation: number = character.charCodeAt(0);

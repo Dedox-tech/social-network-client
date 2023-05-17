@@ -5,9 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
+import { PipePipe } from './pipe.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PipePipe],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule],
   providers: [DatePipe],
   bootstrap: [AppComponent],
