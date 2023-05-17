@@ -1,5 +1,4 @@
 import { FormControl } from '@angular/forms';
-
 import { validatePasswordLogic } from './password.validator';
 
 describe('validatePasswordLogic', () => {
@@ -31,5 +30,7 @@ describe('validatePasswordLogic', () => {
   });
   it('Accept password with at least one upper letter, one digit, and one special character', () => {
     expect(validatePasswordLogic(new FormControl('hecreAswayi7rl7e$6ku7'))).toBeNull();
+    expect(validatePasswordLogic(new FormControl('J5p1rAkeRer+piTeyas7'))).toBeNull();
+    expect(validatePasswordLogic(new FormControl('4ebo4lrA@urif1weyiko'))).toBeNull();
   });
 });

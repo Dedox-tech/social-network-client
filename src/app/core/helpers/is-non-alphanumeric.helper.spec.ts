@@ -1,7 +1,7 @@
 import { isNonAlphanumeric } from './is-non-alphanumeric.helper';
 
 describe('isNonAlphanumeric', () => {
-  it('Detect non alphanumeric values in first characters', () => {
+  it('Detect non alphanumeric values in first character', () => {
     expect(isNonAlphanumeric('a')).toBeFalse();
     expect(isNonAlphanumeric('A')).toBeFalse();
     expect(isNonAlphanumeric('A@')).toBeFalse();
