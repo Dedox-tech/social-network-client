@@ -51,7 +51,7 @@
             #signUpFormDirective="ngForm"
           >
             <div class="custom-form-field">
-              <label> Username </label>
+              <label for="username-signup"> Username </label>
               <mat-form-field>
                 <input
                   matInput
@@ -59,6 +59,8 @@
                   placeholder="Jhondoe007"
                   formControlName="userName"
                   minlength="4"
+                  id="username-signup"
+                  data-testid="username-signup"
                 />
                 <mat-error *ngIf="signUpForm.controls.userName.errors">
                   {{
@@ -73,13 +75,15 @@
               </mat-form-field>
             </div>
             <div class="custom-form-field">
-              <label> Email </label>
+              <label for="email"> Email </label>
               <mat-form-field>
                 <input
                   matInput
                   type="email"
                   placeholder="email@example.com"
                   formControlName="email"
+                  id="email"
+                  data-testid="email-signup"
                 />
                 <mat-error *ngIf="signUpForm.controls.email.errors">
                   {{ signUpForm.controls.email.errors["required"] ? "Email is required." : "" }}
@@ -90,9 +94,15 @@
               </mat-form-field>
             </div>
             <div class="custom-form-field">
-              <label> Password </label>
+              <label for="password"> Password </label>
               <mat-form-field>
-                <input matInput type="password" formControlName="password" />
+                <input
+                  matInput
+                  type="password"
+                  formControlName="password"
+                  id="password"
+                  data-testid="password-signup"
+                />
                 <mat-error *ngIf="signUpForm.controls.password.errors">
                   {{
                     signUpForm.controls.password.errors["required"] ? "Password is required." : ""
