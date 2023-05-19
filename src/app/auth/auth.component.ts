@@ -39,11 +39,17 @@ export class AuthComponent {
     const signUpInformation: UserSignUp = this.signUpForm.value as UserSignUp;
     // Only fires the form if the status is valid
     if (this.signUpForm.valid) {
-      this.authService.signUp(signUpInformation).subscribe((response: EmptyResponse) => {
-        this.snackBarService.open('You have signed up! Now you can login anytime', 'Close');
-        // Resetting the form state
-        this.signUpForm.reset();
-        this.signUpFormDirective?.resetForm();
+      this.authService.signUp(signUpInformation).subscribe({
+        next: (response: EmptyResponse) => {
+          this.snackBarService.open('You have signed up! Now you can login anytime', 'Close');
+          // Resetting the form state
+          this.signUpForm.reset();
+          this.signUpFormDirective?.resetForm();
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          const customError: EmptyResponse = errorResponse.error;
+          this.snackBarService.open(customError.message, 'Close');
+        },
       });
     } else {
       this.snackBarService.open(
