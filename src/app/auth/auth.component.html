@@ -10,9 +10,16 @@
         <mat-card-content>
           <form class="custom-form" [formGroup]="logInForm" (ngSubmit)="handleLogIn()">
             <div class="custom-form-field">
-              <label> Username </label>
+              <label for="username-login"> Username </label>
               <mat-form-field>
-                <input matInput type="text" placeholder="Jhondoe007" formControlName="userName" />
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Jhondoe007"
+                  formControlName="userName"
+                  id="username-login"
+                  data-testid="username-login"
+                />
                 <mat-error *ngIf="logInForm.controls.userName.errors">
                   {{
                     logInForm.controls.userName.errors["required"] ? "Username is required." : ""

@@ -3,7 +3,7 @@
 describe('User sign up flow', () => {
   it('Visits the initial project page', () => {
     cy.visit('/auth');
-    cy.contains('Log in');
+    cy.contains('Log in').should('exist');
   });
   it('Fails the sign up process with non valid info', () => {
     cy.visit('/auth');
@@ -14,5 +14,14 @@ describe('User sign up flow', () => {
     cy.findAllByRole('button').click();
     cy.contains('Something went wrong').should('exist');
     cy.contains('A digit, an upper letter and a special character are a mandatory').should('exist');
+  });
+  it('Sign up a user with correct credentials', () => {
+    cy.visit('/auth');
+    cy.findByText('Sign up').click();
+    cy.findByTestId('username-signup').click().type(Cypress.env('signUp').userName);
+    cy.findByTestId('email-signup').click().type(Cypress.env('signUp').email);
+    cy.findByTestId('password-signup').click().type(Cypress.env('signUp').password);
+    cy.findAllByRole('button').click();
+    cy.contains('You have signed up! ').should('exist');
   });
 });
