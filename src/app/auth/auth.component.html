@@ -30,7 +30,12 @@
             <div class="custom-form-field">
               <label> Password </label>
               <mat-form-field>
-                <input matInput type="password" formControlName="password" />
+                <input
+                  matInput
+                  type="password"
+                  formControlName="password"
+                  data-testid="password-login"
+                />
                 <mat-error *ngIf="logInForm.controls.password.errors">
                   {{
                     logInForm.controls.password.errors["required"] ? "Password is required." : ""
