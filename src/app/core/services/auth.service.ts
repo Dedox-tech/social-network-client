@@ -29,7 +29,23 @@ export class AuthService {
     const { token, expiration } = userData;
     localStorage.setItem('token', token);
 
-    const stringDate: string = this.datePipe.transform(expiration, 'full') as string;
+    const stringDate: string = this.datePipe.transform(expiration, 'short') as string;
     localStorage.setItem('expiration', stringDate);
+  }
+
+  getAuthData(): UserAuthInformation | null {
+    const expiration: string | null = localStorage.getItem('expiration');
+    const token: string | null = localStorage.getItem('token');
+
+    if (expiration !== null && token !== null) {
+      const authData: UserAuthInformation = {
+        token,
+        expiration: new Date(expiration),
+      };
+
+      return authData;
+    }
+
+    return null;
   }
 }

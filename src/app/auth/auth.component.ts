@@ -36,6 +36,8 @@ export class AuthComponent {
   });
 
   handleSignUp(): void {
+    // Testing
+    this.authService.getAuthData();
     const signUpInformation: UserSignUp = this.signUpForm.value as UserSignUp;
     // Only fires the form if the status is valid
     if (this.signUpForm.valid) {
